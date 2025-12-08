@@ -2,10 +2,13 @@ import VidegameCard from "../components/VideogameCard";
 import VideogameFormulario from "../components/VideogameFormulario";
 import VideogameUpdateFormulario from "../components/VideogameUpdateFormulario";
 import games from "../data/videogameData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getGames from "../logic/getVideojuegos";
 
 function VideojuegoPage() {
-  const [gamesState, setGamesState] = useState(games);
+ // original cogía los datos de data de la app -  const [gamesState, setGamesState] = useState(games);
+ // para el punto 3:
+ const [gamesState, setGamesState] = useState([]);
   const [show, setShow] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   // guarda un solo videojuego (editar)
@@ -13,6 +16,20 @@ function VideojuegoPage() {
 //  console.log(editGame);
 
   //console.log(gamesState);
+
+  // del punto 3 - useEffect
+
+  useEffect(() => {
+    // hacemos la llamada a la función que está en lógica.
+    getGames()
+    .then((data) => {
+      // se guarda los datos recibidos en el estado.
+      setGamesState(data)
+    })
+    // salta si hay error.
+    .catch((error) => console.error("Error fetching games", error))
+    // se usa un array vacío asegura que solo se ejecute una vez.
+  }, [])
 
   /**
    * Función que elimina el último item.
@@ -103,7 +120,7 @@ function VideojuegoPage() {
 
   return (
     <>
-      <h1 className="videojuego-h1">Página videojuego</h1>
+      <h1 className="videojuego-h1">Página videojuegos</h1>
       <div className="videogame-list">
         {/*     se lista los video juegos usando para ello la función map. 
         recibe el valor de cada item y recibe la función para eliminar un item.*/}

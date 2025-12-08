@@ -28,6 +28,9 @@ function Home() {
           <Link to="/anime" className="btn-outline">
             Ver Anime
           </Link>
+          <Link to="/videojuego" className="btn-outline">
+            Ver videojuegos
+          </Link>
         </div>
       </section>
 

@@ -1,35 +1,20 @@
-import cors from "cors"
 import express from "express"
-import { get } from "mongoose"
-import animes from "./data/animeData.js"
-import mangas from "./data/magData.js"
-import games from "./data/videogameData.js"
+import cors from "cors"
+// para usar la BD - 
+// usar la variables de entorno que hay en .env
+import dotenv from "dotenv"
+// para conectar a la BB
+import connectBD from "./config/bd.js"
 
+//cargas las variables de entorno en el .env
+dotenv.config()
+const PORT = process.env.PORT || 3000
 
-// creamos la instancia a express
+// conectar con la BBDD
+
+await connectBD()
+
 const api = express()
-// puerto.
-const PORT = 3000
 
-// Para hacer las peticiones al servidor. 
+// uso del Middleware para que acepte las peticiones 
 api.use(cors())
-
-// ruta de prueba, verificamos que el servidor responde.
-
-api.get("/", (request, response) => {
-    response.send("Hola mundo.")
-})
-api.get("/animes", (req, res) => {
-    res.json(animes);
-})
-api.get("/mangas", (req, res) => {
-    res.json(mangas);
-})
-api.get("/games", (req, res) => {
-    res.json(games);
-})
-
-// El servidor escuchas.
-api.listen(PORT, () => {
-    console.log(`API server running en localhost 3000`)
-})

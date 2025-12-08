@@ -16,8 +16,6 @@ function VidegameCard({ propsVideogame, onDelete, onUpdate }) {
         <p>ID: {id}</p>
         <p>Nombre: {name}</p>
         <p>Precio: {price} €</p>
-      </div>
-      <div>
         <p>Plataforma: {platform}</p>
         <p>Años: {year}</p>
       </div>
