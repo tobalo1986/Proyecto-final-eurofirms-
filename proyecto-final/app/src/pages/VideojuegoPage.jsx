@@ -58,6 +58,8 @@ function VideojuegoPage() {
     gameAdd.id = maxId + 1;
     copy.push(gameAdd);
     setGamesState(copy);
+    // para desaparecer el modal para crear.
+    setShow(false)
   }
 
   /**

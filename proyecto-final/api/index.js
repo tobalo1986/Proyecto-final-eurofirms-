@@ -1,40 +1,108 @@
-import express from "express"
-import cors from "cors"
-// para usar la BD - 
+import express, { request, response } from "express";
+import cors from "cors";
+// para usar la BD -
 // usar la variables de entorno que hay en .env
-import dotenv from "dotenv"
+import dotenv from "dotenv";
 // para conectar a la BB
-import connectBD from "./config/bd.js"
-import Game from "./models/games.model.js"
+import connectBD from "./config/bd.js";
+import Game from "./models/games.model.js";
 
 //cargas las variables de entorno en el .env
-dotenv.config()
-const PORT = process.env.PORT || 3000
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 // conectar con la BBDD
 
-await connectBD()
+await connectBD();
 
-const api = express()
+const api = express();
 
-// uso del Middleware para que acepte las peticiones 
-api.use(cors())
+// uso del Middleware para que acepte las peticiones
+api.use(cors());
 
 // se pasa a json para las peticiones de post/put (crear y editar)
-api.use(express.json())
+api.use(express.json());
+
+// ruta para devolver los datoos que hay en la bbdd y colección games.
+
+api.get("/games", async (request, response) => {
+  try {
+    // lean -> limpia la información que viene de la BBDD
+    const games = await Game.find().lean();
+    response.json(games);
+  } catch (error) {
+    console.error("error, en el Get de games: ", error);
+    response.json({ error: "DB_ERROR" });
+  }
+});
+
+/**
+ * por ahora solo funciona el crud en postman - queda conectarlo con el 
+ * app ... 
+ * continuara .....
+ */
 
 
-// ruta para devolver los datoos que hay en la bbdd y colección games. 
+// para agregar un nuevo juego.
+api.post("/games", async (request, response) => {
+  try {
+    // se recupera datos
+    const postData = request.body;
+    // se crea un nuevo item de Games en la BBDD
+    const newGame = new Game(postData);
+    // se guarda en la BBDD
+    const savedGame = await newGame.save();
+    // devolver estado de que se creo el item en la BBDD - 201
+    response.status(201).json(savedGame);
+  } catch (error) {
+    console.error("Error: en POST - game: ", error);
+    response.status(500).json({ error: "DB_Error" });
+  }
+});
+// eliminar un juego.
+// no iba por la ruta ... le faltaba la dichosa s - no era game/:id sino gameS/:id.
+api.delete("/games/:id", async (request, response) => {
+  try {
+    // se recupera la id y se busca y elimina de la BBDD
+    const gameId = request.params.id;
+    const deleteGame = await Game.findByIdAndDelete(gameId);
 
-api.get("/games", async (request, response) =>{
-    try {
-        const games = await Game.find().lean()
-        response.json(games)
-    } catch (error) {
-        console.error("error, en el Get de games: ", error)
-        response.json({error: "DB_ERROR"})
-        
+    // Comprobamos si existe un documento con la ID que se ha enviado
+    if (!deleteGame) {
+      return response.status(404).json({ error: "Game not found" });
     }
-})
+    response.json({ message: "Game deleted" });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+
+// actualizar
+
+api.put("/games/:id", async (request, response) => {
+    try {
+        const gameId = request.params.id
+        const gameData = request.body
+
+        // Extraer el post por la ID
+        const game = await Game.findById(gameId)
+
+        // Comprobamos si existe un documento con la ID que se ha enviado
+        if (!game) {
+            return response.status(404).json({error: 'Post not found'})
+        }
+
+        // Usamos set y save para asegurarnos que se aplica la validación
+        // Otra opción sería usar 'runValidators':
+        // const post = await Post.findByIdAndUpdate({ _id: postId }, postData, {new: true, runValidators: true})
+        game.set(gameData)
+        await game.save()
+
+        response.json(game)
+
+    } catch(error) {
+        response.status(500).json({error: error.message})
+    }
+});
 
 api.listen(PORT, () => console.log(`API funcionando en puerto ${PORT}`));

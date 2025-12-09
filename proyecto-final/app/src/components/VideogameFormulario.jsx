@@ -28,10 +28,15 @@ export default function VideogameFormulario({ onAddGame }) {
     onAddGame(gameAdd);
   }
   return (
-    <div>
+    // clase para editar/ modificar un modal.
+   <div className="modalCreate">
+     <div className="formCreate">
+
       <h2>Agrega un videojuego.</h2>
       <form onSubmit={agregarJuego} action="" method="post">
-        <label htmlFor="name">Nombre:</label>
+
+      <div className="itemForm">
+      <label htmlFor="name">Nombre:</label>
         <input
           type="text"
           name="name"
@@ -39,8 +44,10 @@ export default function VideogameFormulario({ onAddGame }) {
           required
           placeholder="Nombre..."
         />
+      </div>
 
-        <label htmlFor="price">Precio:</label>
+      <div className="itemForm">
+      <label htmlFor="price">Precio:</label>
         <input
           type="number"
           name="price"
@@ -48,8 +55,10 @@ export default function VideogameFormulario({ onAddGame }) {
           required
           placeholder="Precio..."
         />
+      </div>
 
-        <label htmlFor="plataform">Plataforma:</label>
+      <div className="itemForm">
+      <label htmlFor="plataform">Plataforma:</label>
         <select name="plataform" id="plataform" required>
           <option value="switch">Switch</option>
           <option value="switch2">Switch 2</option>
@@ -58,9 +67,11 @@ export default function VideogameFormulario({ onAddGame }) {
           <option value="pc">PC</option>
           <option value="xboxSerie">Xbox Series X</option>
         </select>
+      </div>
 
 
-        <label htmlFor="year">Año:</label>
+      <div className="itemForm">
+      <label htmlFor="year">Año:</label>
         <input
           type="date"
           name="year"
@@ -68,14 +79,18 @@ export default function VideogameFormulario({ onAddGame }) {
           required
           placeholder="Año..."
         />
+      </div>
 
-        <label htmlFor="image">Url img:</label>
+     <div className="itemForm">
+     <label htmlFor="image">Url img:</label>
         <input
           type="text"
           name="image"
           id="image"
           placeholder="url imagen..."
         />
+     </div>
+     
         <input type="submit" value="Agregar" />
         {/* duda como pasar datos para que se pueda pintar en videojuegos
         idea: pasar los datos y cuando se agregue la id seria un +1
@@ -95,5 +110,6 @@ export default function VideogameFormulario({ onAddGame }) {
         */}
       </form>
     </div>
+   </div>
   );
 }
