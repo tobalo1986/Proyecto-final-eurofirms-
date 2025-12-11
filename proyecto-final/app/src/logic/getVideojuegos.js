@@ -1,3 +1,8 @@
+/**
+ * Lógica para traer por get los datos de la api de juegos.
+ * @returns 
+ */
+
 async function getGames() {
     // Hacemos la petición a la URL de TU servidor local
     return fetch("http://localhost:3000/games")
