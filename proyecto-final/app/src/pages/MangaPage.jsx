@@ -7,7 +7,7 @@ import getMangas from "../logic/getMangas";
 
 function MangaPage() {
      // para el punto 3:
- const [mangasState, setMangasState] = useState([]);
+/*  const [mangasState, setMangasState] = useState([]);
 
  // del punto 3 - useEffect
 
@@ -22,7 +22,7 @@ function MangaPage() {
    .catch((error) => console.error("Error fetching games", error))
    // se usa un array vacío asegura que solo se ejecute una vez.
  }, [])
-
+ */
 
 
     return (
@@ -32,7 +32,7 @@ function MangaPage() {
 
             <div className="manga-grid">
             {/*     para el punto 3 se pueda hacer se usa el useState de mangas */}
-                {mangasState.map((manga) => (
+                {mangas.map((manga) => (
                     <MangaCard key={manga.id} propsManga={manga} />
                 ))}
             </div>
