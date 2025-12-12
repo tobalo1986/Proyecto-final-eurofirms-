@@ -29,8 +29,8 @@ export default function VideogameFormulario({ onAddGame }) {
   }
   return (
     // clase para editar/ modificar un modal.
-   <div className="modalCreate">
-     <div className="formCreate">
+   <div className="modal">
+     <div className="formModal">
 
       <h2>Agrega un videojuego.</h2>
       <form onSubmit={agregarJuego} action="" method="post">

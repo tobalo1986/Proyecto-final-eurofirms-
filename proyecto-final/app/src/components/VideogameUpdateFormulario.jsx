@@ -38,73 +38,86 @@ export default function VideogameUpdateFormulario({
   /* Para poder editar se debe de usar value (se pone el valor que viene en 
   useSTate y onChange usando el set de ese useSTate) */
   return (
-    <div>
-      <h2>Vamos a editar... </h2>
-      <form onSubmit={actualizarJuego} action="" method="post">
-        <label htmlFor="name">Nombre:</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          required
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
-        <label htmlFor="price">Precio:</label>
-        <input
-          type="number"
-          name="price"
-          id="price"
-          placeholder="Precio..."
-          value={price}
-          onChange={(e) => {
-            setPrice(e.target.value);
-          }}
-        />
+    <div className="modal">
+     <div className="formModal">
+        <h2>Vamos a editar... </h2>
+        <form onSubmit={actualizarJuego} action="" method="post">
+          <div className="itemForm">
+            <label htmlFor="name">Nombre:</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              required
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+            />
+          </div>
 
-        <label htmlFor="plataform">Plataforma:</label>
-        <select
-          name="plataform"
-          id="plataform"
-          required
-          value={plataform}
-          onChange={(e) => setPlataform(e.target.value)}
-        >
-          <option value="switch">Switch</option>
-          <option value="switch2">Switch 2</option>
-          <option value="ps4">Playstation 4</option>
-          <option value="ps5">Playstation 5</option>
-          <option value="pc">PC</option>
-          <option value="xboxSerie">Xbox Series X</option>
-        </select>
+          <div className="itemForm">
+            <label htmlFor="price">Precio:</label>
+            <input
+              type="number"
+              name="price"
+              id="price"
+              placeholder="Precio..."
+              value={price}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            />
+          </div>
 
-        <label htmlFor="year">Año:</label>
-        <input
-          type="number"
-          name="year"
-          id="year"
-          value={year}
-          /* onChange : es para coger el valor que pones en el input para editar. */
-          onChange={(e) => {
-            setYear(e.target.value);
-          }}
-        />
+          <div className="itemForm">
+            <label htmlFor="plataform">Plataforma:</label>
+            <select
+              name="plataform"
+              id="plataform"
+              required
+              value={plataform}
+              onChange={(e) => setPlataform(e.target.value)}
+            >
+              <option value="switch">Switch</option>
+              <option value="switch2">Switch 2</option>
+              <option value="ps4">Playstation 4</option>
+              <option value="ps5">Playstation 5</option>
+              <option value="pc">PC</option>
+              <option value="xboxSerie">Xbox Series X</option>
+            </select>
+          </div>
 
-        <label htmlFor="image">Url img:</label>
-        <input
-          type="text"
-          name="image"
-          id="image"
-          placeholder="url imagen..."
-          value={image}
-          onChange={(e) => {
-            setImage(e.target.value);
-          }}
-        />
-        <input  type="submit" value="Modificar" />
-      </form>
+          <div className="itemForm">
+            <label htmlFor="year">Año:</label>
+            <input
+              type="number"
+              name="year"
+              id="year"
+              value={year}
+              /* onChange : es para coger el valor que pones en el input para editar. */
+              onChange={(e) => {
+                setYear(e.target.value);
+              }}
+            />
+          </div>
+          <div className="itemForm">
+            <label htmlFor="image">Url img:</label>
+            <input
+              type="text"
+              name="image"
+              id="image"
+              placeholder="url imagen..."
+              value={image}
+              onChange={(e) => {
+                setImage(e.target.value);
+              }}
+            />
+          </div>
+
+          <input type="submit" value="Modificar" />
+        </form>
+      </div>
     </div>
   );
 }

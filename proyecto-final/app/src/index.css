@@ -317,13 +317,14 @@ body {
     }
 }
 /* para crear juegos nuevos - modal
-Formulario de agregar nuevo videogame!.*/
+Formulario de agregar nuevo videogame!
+y editar game.*/
 
 /* Estilo al primer div
 lo que hace es que ocupe todo el ancho y largo de la pantalla,
 que tenga una transparencia, y centra el segundo div */
 
-.modalCreate {
+.modal {
     position: fixed;
     top: 0;
     right: 0;
@@ -337,19 +338,19 @@ que tenga una transparencia, y centra el segundo div */
 }
 /* estilo para el div donde esta el formulario, en principio fondo blanco
 y letras negras.*/
-.formCreate {
+.formModal {
     background-color: white;
     color: black;
 
 }
 
-.formCreate form {
+.formModal form {
     display: flex;
     flex-direction: column;
     padding: 10%;
 }
 
-.formCreate form .itemForm {
+.formModal form .itemForm {
     padding: 5%;
 }
 /* - fin del modal del formulario crear juego */
