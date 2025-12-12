@@ -19,7 +19,7 @@ export default function VideogameFormulario({ onAddGame }) {
     gameAdd.image = url;
     gameAdd.name = event.target.name.value;
     gameAdd.price = event.target.price.value;
-    gameAdd.plataform = event.target.plataform.value;
+    gameAdd.platform = event.target.platform.value;
     gameAdd.year = event.target.year.value;
     // gameAdd.image = event.target.image.value;
 
@@ -58,8 +58,8 @@ export default function VideogameFormulario({ onAddGame }) {
       </div>
 
       <div className="itemForm">
-      <label htmlFor="plataform">Plataforma:</label>
-        <select name="plataform" id="plataform" required>
+      <label htmlFor="platform">Plataforma:</label>
+        <select name="platform" id="platform" required>
           <option value="switch">Switch</option>
           <option value="switch2">Switch 2</option>
           <option value="ps4">Playstation 4</option>
@@ -90,8 +90,9 @@ export default function VideogameFormulario({ onAddGame }) {
           placeholder="url imagen..."
         />
      </div>
-     
+     <div className="botonesVG">
         <input type="submit" value="Agregar" />
+        </div>
         {/* duda como pasar datos para que se pueda pintar en videojuegos
         idea: pasar los datos y cuando se agregue la id seria un +1
         a la última id que haya en la BBDD 

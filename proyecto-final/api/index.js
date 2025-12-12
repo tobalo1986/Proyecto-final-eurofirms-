@@ -29,6 +29,11 @@ api.get("/games", async (request, response) => {
   try {
     // lean -> limpia la información que viene de la BBDD
     const games = await Game.find().lean();
+    // cambiar _id a id
+    games.forEach((game) => {
+      game.id = game._id.toString()
+      delete game._id
+    })
     response.json(games);
   } catch (error) {
     console.error("error, en el Get de games: ", error);

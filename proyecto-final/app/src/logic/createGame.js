@@ -1,8 +1,8 @@
 const BASE_URL = import.meta.env.VITE_API_URL 
 
-async function createGames(postData) {
+async function createGame(postData) {
 
-    return fetch(`${BASE_URL}/games`, {
+    return fetch(`${BASE_URL}games`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(postData)
@@ -14,4 +14,4 @@ async function createGames(postData) {
     
 }
 
-export default createGames
+export default createGame

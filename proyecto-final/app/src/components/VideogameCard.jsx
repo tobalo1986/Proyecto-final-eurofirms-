@@ -20,7 +20,7 @@ function VidegameCard({ propsVideogame, onDelete, onUpdate }) {
         <p>Años: {year}</p>
       </div>
       <img src={image} alt={name} />
-      <div>
+      <div className="botonesVG">
         {/*  Se pasa con el evento  la id item. */}
         <button onClick={() => onDelete(id)}>Eliminar</button>
         {/*  Se pasa con el evento todas las propiedades del item. */}

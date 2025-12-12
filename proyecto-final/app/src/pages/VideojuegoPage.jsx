@@ -1,35 +1,45 @@
 import VidegameCard from "../components/VideogameCard";
 import VideogameFormulario from "../components/VideogameFormulario";
 import VideogameUpdateFormulario from "../components/VideogameUpdateFormulario";
-import games from "../data/videogameData";
 import { useEffect, useState } from "react";
-import getGames from "../logic/getVideojuegos";
+import getGames from "../logic/getGames";
+import createGame from "../logic/createGame";
+import deleteGame from "../logic/deleteGame";
 
 function VideojuegoPage() {
- // original cogía los datos de data de la app -  const [gamesState, setGamesState] = useState(games);
- // para el punto 3:
- const [gamesState, setGamesState] = useState([]);
+  // original cogía los datos de data de la app -  const [gamesState, setGamesState] = useState(games);
+  // para el punto 3:
+  const [gamesState, setGamesState] = useState([]);
   const [show, setShow] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   // guarda un solo videojuego (editar)
   const [editGame, setEditGame] = useState(null);
-//  console.log(editGame);
+  //  console.log(editGame);
 
   //console.log(gamesState);
 
   // del punto 3 - useEffect
+  
 
   useEffect(() => {
     // hacemos la llamada a la función que está en lógica.
+    handleGetGames()
+    // se usa un array vacío asegura que solo se ejecute una vez.
+  }, []);
+
+
+
+
+  function handleGetGames(){
     getGames()
     .then((data) => {
       // se guarda los datos recibidos en el estado.
-      setGamesState(data)
+      setGamesState(data);
     })
     // salta si hay error.
-    .catch((error) => console.error("Error fetching games", error))
-    // se usa un array vacío asegura que solo se ejecute una vez.
-  }, [])
+    .catch((error) => console.error("Error fetching games", error));
+  }
+
 
   /**
    * Función que elimina el último item.
@@ -50,8 +60,24 @@ function VideojuegoPage() {
    * en la copy de agrega el objeto al copy y se cambia el estado.
    *
    */
-  function addGame(gameAdd) {
-    const copy = [...gamesState];
+  function handleCreateGame(gameAdd) {
+    try {
+      createGame(gameAdd)
+        .then((response) => {
+          console.log(response);
+         // Vuelve a pedir los juegos a la api.
+          handleGetGames()
+           // para desaparecer el modal para crear.
+          setShow(false);
+        })
+        .catch((error) => {
+          console.error("Error creating Game: ", error);
+        });
+    } catch (error) {
+      console.error("Error not connection: ", error);
+    }
+
+    /*   const copy = [...gamesState];
     const maxId =
       gamesState.length > 0 ? Math.max(...gamesState.map((g) => g.id)) : 0;
     //console.log(maxId);
@@ -59,21 +85,41 @@ function VideojuegoPage() {
     copy.push(gameAdd);
     setGamesState(copy);
     // para desaparecer el modal para crear.
-    setShow(false)
+    setShow(false) */
   }
 
   /**
    *
    * Función que recibe una id y se filtra para se eliminada ese item.
    */
-  function onDelete(id) {
-    //  console.log("funcion onDelete");
+  function handleDelete(id) {
+
+    try {
+      deleteGame(id)
+     // console.log("la id: ", id)
+      .then((response) => {
+        console.log(response);
+       // Vuelve a pedir los juegos a la api.
+        handleGetGames()
+        
+      })
+      .catch((error) => {
+        console.error("Error deleting Game: ", error);
+      });
+      
+    } catch (error) {
+      console.error("Error not connection: ", error);
+      
+    }
+
+
+  /*   //  console.log("funcion onDelete");
     //   console.log(id);
 
     let copy = gamesState.filter((game) => game.id !== id);
     //console.log(copy);
     //console.log("despues de filtar ondelete");
-    setGamesState(copy);
+    setGamesState(copy); */
   }
   /**
    * las funciones mostrarUpdate() y CerrarFormulario()
@@ -93,21 +139,20 @@ function VideojuegoPage() {
   /** funcion para actualizar un item */
 
   function handleUpdate(gameToUpdate) {
-   // console.log("El mensaje llega al padre")
+    // console.log("El mensaje llega al padre")
     // console.log(gameToUpdate);
     setEditGame(gameToUpdate);
     mostrarUpdate();
   }
 
-
   // función para actualizar el juego
-  function actualizarJuego(gameUpdate){
-    console.log("La info del juego actualizado al padre.")
-    console.log(gameUpdate)
+  function actualizarJuego(gameUpdate) {
+    console.log("La info del juego actualizado al padre.");
+    console.log(gameUpdate);
     const copy = [...gamesState];
-    const index = copy.findIndex(game => game.id === gameUpdate.id)
+    const index = copy.findIndex((game) => game.id === gameUpdate.id);
     copy.splice(index, 1, gameUpdate);
-    setGamesState(copy)
+    setGamesState(copy);
   }
 
   /**
@@ -131,7 +176,7 @@ function VideojuegoPage() {
             <VidegameCard
               key={game.id}
               propsVideogame={game}
-              onDelete={onDelete}
+              onDelete={handleDelete}
               onUpdate={handleUpdate}
             />
           );
@@ -146,18 +191,17 @@ function VideojuegoPage() {
           gameToUpdate={editGame}
           onClose={cerrarFormulario}
           onUpdateGame={actualizarJuego}
-
         />
       )}
       <div className="botonesVG">
-        <button onClick={() => deleteOne()}>Delete the last one</button>
+        {/*  <button onClick={() => deleteOne()}>Delete the last one</button> */}
         <button onClick={() => agregar()}>
           {show ? "Cerrar formulario" : "Agregar nuevo"}
         </button>
       </div>
 
       {/* muestra el formulario solo si show = true */}
-      {show && <VideogameFormulario onAddGame={addGame} />}
+      {show && <VideogameFormulario onAddGame={handleCreateGame} />}
     </>
   );
 }

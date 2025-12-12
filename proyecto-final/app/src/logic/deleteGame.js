@@ -1,8 +1,8 @@
 const BASE_URL = import.meta.env.VITE_API_URL 
 
-async function deleteGames(id) {
+async function deleteGame(id) {
 
-    return fetch(`${BASE_URL}/games/${id}`, {
+    return fetch(`${BASE_URL}games/${id}`, {
         method: "DELETE",
     })
     .then((response) => response.json())
@@ -12,4 +12,4 @@ async function deleteGames(id) {
     
 }
 
-export default deleteGames
+export default deleteGame

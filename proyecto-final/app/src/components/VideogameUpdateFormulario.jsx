@@ -40,7 +40,8 @@ export default function VideogameUpdateFormulario({
   return (
     <div className="modal">
      <div className="formModal">
-        <h2>Vamos a editar... </h2>
+     <div className="cardVideoGame">
+     <h2>Vamos a editar... </h2>
         <form onSubmit={actualizarJuego} action="" method="post">
           <div className="itemForm">
             <label htmlFor="name">Nombre:</label>
@@ -114,9 +115,11 @@ export default function VideogameUpdateFormulario({
               }}
             />
           </div>
-
+          <div className="botonesVG">
           <input type="submit" value="Modificar" />
+          </div>
         </form>
+        </div>
       </div>
     </div>
   );
