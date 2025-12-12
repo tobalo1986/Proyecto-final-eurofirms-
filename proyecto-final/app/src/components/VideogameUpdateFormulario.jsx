@@ -32,7 +32,8 @@ export default function VideogameUpdateFormulario({
     };
     console.log("de la funcion actualiarJuego")
     console.log(gameUpdate);
-    onUpdateGame(gameUpdate);
+    // para que funcione el update en el fronte se pasa los dos datos, la id y el objeto.
+    onUpdateGame(gameToUpdate.id,gameUpdate);
     onClose()
   }
   /* Para poder editar se debe de usar value (se pone el valor que viene en 

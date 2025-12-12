@@ -1,6 +1,6 @@
 const BASE_URL = import.meta.env.VITE_API_URL 
 
-async function updateGames(id, updateData) {
+async function updateGame(id, updateData) {
 
     return fetch(`${BASE_URL}games/${id}`, {
         method: "PUT",
@@ -14,4 +14,4 @@ async function updateGames(id, updateData) {
     
 }
 
-export default updateGames
+export default updateGame

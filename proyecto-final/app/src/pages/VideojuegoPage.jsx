@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import getGames from "../logic/getGames";
 import createGame from "../logic/createGame";
 import deleteGame from "../logic/deleteGame";
+import updateGame from "../logic/updateGame";
 
 function VideojuegoPage() {
   // original cogía los datos de data de la app -  const [gamesState, setGamesState] = useState(games);
@@ -19,27 +20,22 @@ function VideojuegoPage() {
   //console.log(gamesState);
 
   // del punto 3 - useEffect
-  
 
   useEffect(() => {
     // hacemos la llamada a la función que está en lógica.
-    handleGetGames()
+    handleGetGames();
     // se usa un array vacío asegura que solo se ejecute una vez.
   }, []);
 
-
-
-
-  function handleGetGames(){
+  function handleGetGames() {
     getGames()
-    .then((data) => {
-      // se guarda los datos recibidos en el estado.
-      setGamesState(data);
-    })
-    // salta si hay error.
-    .catch((error) => console.error("Error fetching games", error));
+      .then((data) => {
+        // se guarda los datos recibidos en el estado.
+        setGamesState(data);
+      })
+      // salta si hay error.
+      .catch((error) => console.error("Error fetching games", error));
   }
-
 
   /**
    * Función que elimina el último item.
@@ -65,9 +61,9 @@ function VideojuegoPage() {
       createGame(gameAdd)
         .then((response) => {
           console.log(response);
-         // Vuelve a pedir los juegos a la api.
-          handleGetGames()
-           // para desaparecer el modal para crear.
+          // Vuelve a pedir los juegos a la api.
+          handleGetGames();
+          // para desaparecer el modal para crear.
           setShow(false);
         })
         .catch((error) => {
@@ -93,27 +89,22 @@ function VideojuegoPage() {
    * Función que recibe una id y se filtra para se eliminada ese item.
    */
   function handleDelete(id) {
-
     try {
       deleteGame(id)
-     // console.log("la id: ", id)
-      .then((response) => {
-        console.log(response);
-       // Vuelve a pedir los juegos a la api.
-        handleGetGames()
-        
-      })
-      .catch((error) => {
-        console.error("Error deleting Game: ", error);
-      });
-      
+        // console.log("la id: ", id)
+        .then((response) => {
+          console.log(response);
+          // Vuelve a pedir los juegos a la api.
+          handleGetGames();
+        })
+        .catch((error) => {
+          console.error("Error deleting Game: ", error);
+        });
     } catch (error) {
       console.error("Error not connection: ", error);
-      
     }
 
-
-  /*   //  console.log("funcion onDelete");
+    /*   //  console.log("funcion onDelete");
     //   console.log(id);
 
     let copy = gamesState.filter((game) => game.id !== id);
@@ -122,11 +113,11 @@ function VideojuegoPage() {
     setGamesState(copy); */
   }
   /**
-   * las funciones mostrarUpdate() y CerrarFormulario()
+   * las funciones showFormUpdate() y CerrarFormulario()
    * abre al pulsar el botón editar y lo cierra si se pulsa el botón modificar.
    * DUDA: pero no se si se llegaría a pasar los datos para poder modificar.
    */
-  function mostrarUpdate() {
+  function showFormUpdate() {
     //setShowUpdate(!showUpdate)
     setShowUpdate(true);
   }
@@ -136,23 +127,42 @@ function VideojuegoPage() {
     setShowUpdate(false);
   }
 
-  /** funcion para actualizar un item */
+  /** Función que muestra el formulario para poder
+   * editar un juego.
+   */
 
-  function handleUpdate(gameToUpdate) {
+  function showUpdateForm(gameToUpdate) {
     // console.log("El mensaje llega al padre")
     // console.log(gameToUpdate);
     setEditGame(gameToUpdate);
-    mostrarUpdate();
+    showFormUpdate();
   }
 
   // función para actualizar el juego
-  function actualizarJuego(gameUpdate) {
-    console.log("La info del juego actualizado al padre.");
+  function handleUpdate(id, updateData) {
+    console.log("la id: ", id, "valor del uptade: ", updateData)
+    try {
+      updateGame(id, updateData)
+    
+        .then((response) => {
+         
+          console.log(response);
+          // Vuelve a pedir los juegos a la api.
+          handleGetGames();
+        })
+        .catch((error) => {
+          console.error("Error updating Game: ", error);
+        });
+    } catch (error) {
+      console.error("Error not connection: ", error);
+    }
+
+    /*   console.log("La info del juego actualizado al padre.");
     console.log(gameUpdate);
     const copy = [...gamesState];
     const index = copy.findIndex((game) => game.id === gameUpdate.id);
     copy.splice(index, 1, gameUpdate);
-    setGamesState(copy);
+    setGamesState(copy); */
   }
 
   /**
@@ -177,7 +187,7 @@ function VideojuegoPage() {
               key={game.id}
               propsVideogame={game}
               onDelete={handleDelete}
-              onUpdate={handleUpdate}
+              onUpdate={showUpdateForm}
             />
           );
         })}
@@ -190,7 +200,7 @@ function VideojuegoPage() {
         <VideogameUpdateFormulario
           gameToUpdate={editGame}
           onClose={cerrarFormulario}
-          onUpdateGame={actualizarJuego}
+          onUpdateGame={handleUpdate}
         />
       )}
       <div className="botonesVG">
