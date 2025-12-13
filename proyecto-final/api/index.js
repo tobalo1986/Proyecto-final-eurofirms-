@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 // para conectar a la BB
 import connectBD from "./config/bd.js";
 import Game from "./models/games.model.js";
+import Anime from "./models/animes.model.js"
 // para conexion openai
 import OpenAI from "openai";
 
@@ -110,6 +111,28 @@ api.put("/games/:id", async (request, response) => {
     } catch(error) {
         response.status(500).json({error: error.message})
     }
+});
+
+/**
+ * Método de get.
+ */
+
+// ruta para devolver los datoos que hay en la bbdd y colección games.
+
+api.get("/animes", async (request, response) => {
+  try {
+    // lean -> limpia la información que viene de la BBDD
+    const animes = await Anime.find().lean();
+    // cambiar _id a id
+    animes.forEach((anime) => {
+      anime.id = anime._id.toString()
+      delete anime._id
+    })
+    response.json(animes);
+  } catch (error) {
+    console.error("error, en el Get de Animes: ", error);
+    response.json({ error: "DB_ERROR" });
+  }
 });
 
 const client = new OpenAI({
