@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import heroImage from "../assets/hero.png";
 
 function Home() {
   return (
@@ -7,9 +6,16 @@ function Home() {
       <header className="home-hero">
         <div className="home-hero-image-wrapper">
           <img
-            src={heroImage}
+            src="/hero.webp"
             alt="Collage de cultura pop japonesa con anime, manga y videojuegos"
             className="home-hero-image"
+            // solucion cls para mejorar el rendimiento
+            width="1043"
+            height="582"
+
+            // solucion para mejorar la velocidad de carga
+
+            fetchPriority="high"
           />
         </div>
       </header>

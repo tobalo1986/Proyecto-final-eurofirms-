@@ -156,6 +156,7 @@ body {
 
 .home-hero-image {
     width: 100%;
+    height: auto;
     max-height: 720px;
     object-fit: cover;
     object-position: top center;
