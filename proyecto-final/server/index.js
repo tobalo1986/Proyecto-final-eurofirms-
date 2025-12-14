@@ -26,39 +26,6 @@ api.use(cors());
 // se pasa a json para las peticiones de post/put (crear y editar)
 api.use(express.json());
 
-// verificamos la key para evitar crash al principio 
-
-const openaiApiKey = process.env.OPENAI_API_KEY;
-
-let clien;
-
-if (openaiApiKey) {
-  clien = new OpenAI({ apiKey: openaiApiKey});
-}else{
-  console.warn("No se encontro la api key")
-}
-
-// Arrancamos el servidor
-
-const startServer = async () => {
-  try {
-    await connectBD();
-    console.log("conexión a BBDD exitosa")
-
-    api.listen(PORT, () => {
-      console.log(`API funcionando en puerto ${PORT}`);
-    });
-  }catch(error) {
-    console.error("error FATAL al iniciar el servidor:", error);
-  }
-};
-
-startServer();
-
-// Ruta de prueba para saber si el server está vivo
-api.get("/", (req, res) => {
-  res.send("API funcionando correctamente");
-});
 
 // ruta para devolver los datoos que hay en la bbdd y colección games.
 
@@ -254,14 +221,13 @@ api.post("/api/sensei", async (req, res) => {
 
         const response = await client.chat.completions.create({
             model: "gpt-4o-mini",
-            input: [
+            messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: userMessage }
             ]
         });
 
         const raw = response.choices[0].message.content.trim();
-        //const raw = response.output_text.trim();
 
         // Intentar limpiar posibles bloques ```json ... ```
         let cleaned = raw.replace(/```json/gi, "").replace(/```/g, "").trim();
