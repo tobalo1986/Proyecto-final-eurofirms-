@@ -3,7 +3,7 @@ const animesShema = new mongoose.Schema({
     name: { type: String, require: true },
     description: { type: String },
     youtubeId: { type: String, require: true },
-    genre: { type: String, require: true },
+    genre: { type: [String], require: true },
     year: {
         type: String,
         required: true,

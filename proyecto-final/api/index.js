@@ -135,6 +135,65 @@ api.get("/animes", async (request, response) => {
   }
 });
 
+// para agregar un nuevo anime.
+api.post("/animes", async (request, response) => {
+  try {
+    // se recupera datos
+    const postData = request.body;
+    // se crea un nuevo item de Animes en la BBDD
+    const newAnime = new Anime(postData);
+    // se guarda en la BBDD
+    const savedAnime = await newAnime.save();
+    // devolver estado de que se creo el item en la BBDD - 201
+    response.status(201).json(savedAnime);
+  } catch (error) {
+    console.error("Error: en POST - anime: ", error);
+    response.status(500).json({ error: "DB_Error" });
+  }
+});
+
+// eliminar un anime.
+api.delete("/animes/:id", async (request, response) => {
+  try {
+    // se recupera la id y se busca y elimina de la BBDD
+    const animeId = request.params.id;
+    const deleteAnime = await Anime.findByIdAndDelete(animeId);
+
+    // Comprobamos si existe un documento con la ID que se ha enviado
+    if (!deleteAnime) {
+      return response.status(404).json({ error: "Anime not found" });
+    }
+    response.json({ message: "Anime deleted" });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+
+// actualizar anime
+api.put("/animes/:id", async (request, response) => {
+    try {
+        const animeId = request.params.id
+        const animeData = request.body
+
+        // Extraer el anime por la ID
+        const anime = await Anime.findById(animeId)
+
+        // Comprobamos si existe un documento con la ID que se ha enviado
+        if (!anime) {
+            return response.status(404).json({error: 'Anime not found'})
+        }
+
+        // Usamos set y save para asegurarnos que se aplica la validación
+        anime.set(animeData)
+        await anime.save()
+
+        response.json(anime)
+
+    } catch(error) {
+        response.status(500).json({error: error.message})
+    }
+});
+
 const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });

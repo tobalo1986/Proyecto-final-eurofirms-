@@ -1,14 +1,76 @@
-import { useState } from "react";
-import animes from "../data/animeData";
+import { useState, useEffect } from "react";
+import getAnimes from "../logic/getAnime";
+import createAnime from "../logic/createAnime";
+import deleteAnime from "../logic/deleteAnime";
+import updateAnime from "../logic/updateAnime";
 import AnimeCard from "../components/AnimeCard";
+import AnimeFormulario from "../components/animeFormulario";
+import AnimeUpdateFormulario from "../components/AnimeUpdateFormulario";
 
 function Anime() {
-    const [animesState, setAnimesState] = useState(animes);
+    const [animesState, setAnimesState] = useState([]);
+    const [show, setShow] = useState(false);
+    const [showUpdate, setShowUpdate] = useState(false);
+    const [editAnime, setEditAnime] = useState(null);
 
-    function deleteOne() {
-        const copy = [...animesState];
-        copy.pop();
-        setAnimesState(copy);
+    useEffect(() => {
+        handleGetAnimes();
+    }, []);
+
+    function handleGetAnimes() {
+        getAnimes()
+            .then((data) => {
+                setAnimesState(data);
+            })
+            .catch((error) => console.error("Error fetching animes", error));
+    }
+
+    function handleCreateAnime(animeAdd) {
+        createAnime(animeAdd)
+            .then((response) => {
+                console.log(response);
+                handleGetAnimes();
+                setShow(false);
+            })
+            .catch((error) => {
+                console.error("Error creating Anime: ", error);
+            });
+    }
+
+    function handleDeleteAnime(id) {
+        deleteAnime(id)
+            .then((response) => {
+                console.log(response);
+                handleGetAnimes();
+            })
+            .catch((error) => {
+                console.error("Error deleting Anime: ", error);
+            });
+    }
+
+    function showUpdateForm(animeToUpdate) {
+        setEditAnime(animeToUpdate);
+        setShowUpdate(true);
+    }
+
+    function cerrarFormulario() {
+        setShowUpdate(false);
+    }
+
+    function handleUpdateAnime(id, updateData) {
+        updateAnime(id, updateData)
+            .then((response) => {
+                console.log(response);
+                handleGetAnimes();
+                setShowUpdate(false);
+            })
+            .catch((error) => {
+                console.error("Error updating Anime: ", error);
+            });
+    }
+
+    function agregar() {
+        setShow(!show);
     }
 
     return (
@@ -20,15 +82,30 @@ function Anime() {
 
             <div className="anime-grid">
                 {animesState.map((anime) => (
-                    <AnimeCard key={anime.id} propsAnimes={anime} />
+                    <AnimeCard 
+                        key={anime.id} 
+                        propsAnimes={anime} 
+                        onDelete={handleDeleteAnime} 
+                        onUpdate={showUpdateForm} 
+                    />
                 ))}
             </div>
 
-            <div className="anime-actions">
-                <button className="btn-secondary" onClick={deleteOne}>
-                    Delete the last one
+            {showUpdate && (
+                <AnimeUpdateFormulario
+                    animeToUpdate={editAnime}
+                    onClose={cerrarFormulario}
+                    onUpdateAnime={handleUpdateAnime}
+                />
+            )}
+
+            <div className="botonesVG">
+                <button className="btn-secondary" onClick={agregar}>
+                    {show ? "Cerrar formulario" : "Agregar nuevo"}
                 </button>
             </div>
+
+            {show && <AnimeFormulario onAddAnime={handleCreateAnime} />}
         </section>
     );
 }
