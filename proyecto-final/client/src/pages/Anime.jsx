@@ -4,7 +4,7 @@ import createAnime from "../logic/createAnime";
 import deleteAnime from "../logic/deleteAnime";
 import updateAnime from "../logic/updateAnime";
 import AnimeCard from "../components/AnimeCard";
-import AnimeFormulario from "../components/animeFormulario";
+import AnimeFormulario from "../components/AnimeFormulario";
 import AnimeUpdateFormulario from "../components/AnimeUpdateFormulario";
 
 function Anime() {

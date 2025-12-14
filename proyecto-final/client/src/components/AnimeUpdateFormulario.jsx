@@ -12,13 +12,13 @@ export default function AnimeUpdateFormulario({
      */
 
     // se crea un useState por cada input del formulario.
-  const [name, setName] = useState(animeToUpdate.name);
-  const [description, setDescription] = useState(animeToUpdate.description);
-  const [youtubeId, setYoutubeId] = useState(animeToUpdate.youtubeId);
-  const [genre, setGenre] = useState(animeToUpdate.genre ? animeToUpdate.genre.join(', ') : '');
-  const [year, setYear] = useState(animeToUpdate.year);
+    const [name, setName] = useState(animeToUpdate.name);
+    const [description, setDescription] = useState(animeToUpdate.description);
+    const [youtubeId, setYoutubeId] = useState(animeToUpdate.youtubeId);
+    const [genre, setGenre] = useState(animeToUpdate.genre ? animeToUpdate.genre.join(', ') : '');
+    const [year, setYear] = useState(animeToUpdate.year);
 
-  
+
     // coge la información de los input y los pasas a su padre.
     function actualizarAnime(event) {
         event.preventDefault();
