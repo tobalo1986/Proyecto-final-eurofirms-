@@ -1,6 +1,4 @@
 import OpenAI from "openai";
-
-// Configuración del cliente de OpenAI
 const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
@@ -11,8 +9,8 @@ Eres una sensei anime amable y divertida.
 Responde SIEMPRE con un JSON válido así:
 
 {
-"text": "tu respuesta aquí en una sola línea",
-"emotion": "neutral | happy | angry | surprised | thinking"
+  "text": "tu respuesta aquí en una sola línea",
+  "emotion": "neutral | happy | angry | surprised | thinking"
 }
 
 REGLAS:
@@ -21,7 +19,7 @@ REGLAS:
 - "text" nunca puede estar vacío.
 `;
 
-const handleSenseiRequest = async (req, res) => {
+const postIA =  async (req, res) => {
     try {
         const userMessage = req.body.message;
 
@@ -58,5 +56,5 @@ const handleSenseiRequest = async (req, res) => {
 };
 
 export default {
-    handleSenseiRequest
-};
+    postIA
+}

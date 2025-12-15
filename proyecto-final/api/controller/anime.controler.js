@@ -1,87 +1,85 @@
-import Anime from "../models/animes.model.js";
+import Anime from "../models/animes.model.js"
 
-// Helper para limpiar el objeto de Mongoose (_id -> id)
-const formatAnime = (anime) => {
-    if (Array.isArray(anime)) {
-        return anime.map(item => {
-            const { _id, ...rest } = item;
-            return { id: _id.toString(), ...rest };
-        });
-    }
-    const { _id, ...rest } = anime.toObject ? anime.toObject() : anime;
-    return { id: _id.toString(), ...rest };
+// ruta para devolver los datoos que hay en la bbdd y colección animes.
+
+const getAnimes =  async (request, response) => {
+  try {
+    // lean -> limpia la información que viene de la BBDD
+    const animes = await Anime.find().lean();
+    // cambiar _id a id
+    animes.forEach((anime) => {
+      anime.id = anime._id.toString()
+      delete anime._id
+    })
+    response.json(animes);
+  } catch (error) {
+    console.error("error, en el Get de Animes: ", error);
+    response.json({ error: "DB_ERROR" });
+  }
 };
 
-// 1. OBTENER TODOS
-const getAllAnimes = async (request, response) => {
-    try {
-        const animes = await Anime.find().lean();
-        const formattedAnimes = formatAnime(animes);
-        response.json(formattedAnimes);
-    } catch (error) {
-        console.error("Error en GET /animes: ", error);
-        response.status(500).json({ error: "DB_ERROR" });
-    }
-};
-
-// 2. CREAR NUEVO
+// para agregar un nuevo anime.
 const createAnime = async (request, response) => {
-    try {
-        const postData = request.body;
-        const newAnime = new Anime(postData);
-        const savedAnime = await newAnime.save();
-
-        response.status(201).json(formatAnime(savedAnime));
-    } catch (error) {
-        console.error("Error en POST /animes: ", error.message);
-        response.status(500).json({ error: "DB_Error", message: error.message });
-    }
+  try {
+    // se recupera datos
+    const postData = request.body;
+    // se crea un nuevo item de Animes en la BBDD
+    const newAnime = new Anime(postData);
+    // se guarda en la BBDD
+    const savedAnime = await newAnime.save();
+    // devolver estado de que se creo el item en la BBDD - 201
+    response.status(201).json(savedAnime);
+  } catch (error) {
+    console.error("Error: en POST - anime: ", error);
+    response.status(500).json({ error: "DB_Error" });
+  }
 };
 
-// 3. ACTUALIZAR
-const updateAnime = async (request, response) => {
-    try {
-        const animeId = request.params.id;
-        const animeData = request.body;
-
-        const anime = await Anime.findByIdAndUpdate(animeId, animeData, { 
-            new: true, 
-            runValidators: true 
-        });
-
-        if (!anime) {
-            return response.status(404).json({ error: 'Anime not found' });
-        }
-
-        response.json(formatAnime(anime));
-
-    } catch (error) {
-        console.error("Error en PUT /animes: ", error.message);
-        response.status(500).json({ error: error.message });
-    }
-};
-
-// 4. ELIMINAR
+// eliminar un anime.
 const deleteAnime = async (request, response) => {
-    try {
-        const animeId = request.params.id;
-        const deleteAnime = await Anime.findByIdAndDelete(animeId);
+  try {
+    // se recupera la id y se busca y elimina de la BBDD
+    const animeId = request.params.id;
+    const deleteAnime = await Anime.findByIdAndDelete(animeId);
 
-        if (!deleteAnime) {
-            return response.status(404).json({ error: "Anime not found" });
-        }
-        response.json({ message: "Anime deleted" });
-
-    } catch (error) {
-        console.error("Error en DELETE /animes: ", error.message);
-        response.status(500).json({ error: error.message });
+    // Comprobamos si existe un documento con la ID que se ha enviado
+    if (!deleteAnime) {
+      return response.status(404).json({ error: "Anime not found" });
     }
+    response.json({ message: "Anime deleted" });
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
 };
 
+// actualizar anime
+const updateAnime =  async (request, response) => {
+    try {
+        const animeId = request.params.id
+        const animeData = request.body
+
+        // Extraer el anime por la ID
+        const anime = await Anime.findById(animeId)
+
+        // Comprobamos si existe un documento con la ID que se ha enviado
+        if (!anime) {
+            return response.status(404).json({error: 'Anime not found'})
+        }
+
+        // Usamos set y save para asegurarnos que se aplica la validación
+        anime.set(animeData)
+        await anime.save()
+
+        response.json(anime)
+
+    } catch(error) {
+        response.status(500).json({error: error.message})
+    }
+};
 
 export default {
-    getAllAnimes,
+    getAnimes,
     createAnime,
-    updateAnime,
     deleteAnime,
-};
+    updateAnime
+}

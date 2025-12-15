@@ -1,34 +1,97 @@
-import express from "express";
+import express, { request, response } from "express";
 import cors from "cors";
+// para usar la BD -
+// usar la variables de entorno que hay en .env
 import dotenv from "dotenv";
+// para conectar a la BB
 import connectBD from "./config/bd.js";
 
-// Importamos los routers refactorizados
-import gamesRouter from "./routes/games.routes.js";
-import animesRouter from "./routes/animes.routes.js";
-import aiRouter from "./routes/ai.routes.js";
 
-// Cargas las variables de entorno en el .env
+
+
+// import rutas 
+
+// import de la IA
+import OpenAI from "openai";
+
+
+//cargas las variables de entorno en el .env
 dotenv.config();
-
 const PORT = process.env.PORT || 3000;
 
-// Conectar con la BBDD
+// conectar con la BBDD
+
 await connectBD();
 
 const api = express();
 
-// --- MIDDLEWARES GLOBALES ---
-api.use(cors()); // Uso del Middleware para que acepte las peticiones
-api.use(express.json()); // Se pasa a json para las peticiones de post/put
+// uso del Middleware para que acepte las peticiones
+api.use(cors());
 
-// --- RUTAS API ---
-// La ruta base se define aquí, el router solo define las subrutas.
-api.use("/games", gamesRouter);      // Gestiona /games y /games/:id
-api.use("/animes", animesRouter);    // Gestiona /animes y /animes/:id
-api.use("/api/sensei", aiRouter);    // Gestiona /api/sensei
+// se pasa a json para las peticiones de post/put (crear y editar)
+api.use(express.json());
 
-// --- INICIO DEL SERVIDOR ---
-api.listen(PORT,
-    () => console.log(`API funcionando en puerto ${PORT}`)
-);
+// rutas
+import router from "./router/router.js"
+api.use("/", router)
+
+// IA
+
+const client = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const systemPrompt = `
+Eres una sensei anime amable y divertida.
+
+Responde SIEMPRE con un JSON válido así:
+
+{
+"text": "tu respuesta aquí en una sola línea",
+"emotion": "neutral | happy | angry | surprised | thinking"
+}
+
+REGLAS:
+- No escribas nada fuera del JSON.
+- No expliques el JSON.
+- "text" nunca puede estar vacío.
+`;
+
+const postIA =  async (req, res) => {
+  try {
+      const userMessage = req.body.message;
+
+      const response = await client.chat.completions.create({
+          model: "gpt-4o-mini",
+          messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: userMessage }
+          ]
+      });
+
+      const raw = response.choices[0].message.content.trim();
+
+      // Intentar limpiar posibles bloques ```json ... ```
+      let cleaned = raw.replace(/```json/gi, "").replace(/```/g, "").trim();
+
+      let json;
+      try {
+          json = JSON.parse(cleaned);
+      } catch {
+          // Si no se puede parsear, intentar extraer solo el campo "text"
+          const match = cleaned.match(/"text"\s*:\s*"([^"]+)"/);
+          const textOnly = match ? match[1] : cleaned;
+
+          json = { text: textOnly, emotion: "neutral" };
+      }
+
+      res.json(json);
+
+  } catch (error) {
+      console.error("Error en la IA:", error);
+      res.status(500).json({ text: "Error en el dojo.", emotion: "neutral" });
+  }
+};
+
+
+api.listen(PORT, () => console.log(`API funcionando en puerto ${PORT}`));

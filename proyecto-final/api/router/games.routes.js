@@ -1,12 +1,11 @@
-import express from 'express';
-import gameController from '../controllers/game.controller.js';
+import express from "express"
+const routerGames = express.Router()
 
-const router = express.Router();
+import Game from "../controller/game.controller.js"
 
-// Rutas CRUD para Games (GET / POST / PUT / DELETE)
-router.get('/', gameController.getAllGames);
-router.post('/', gameController.createGame);
-router.put('/:id', gameController.updateGame);
-router.delete('/:id', gameController.deleteGame);
+routerGames.get("/", Game.getGames)
+routerGames.post("/", Game.createGame)
+routerGames.put("/:id", Game.updadteGame)
+routerGames.delete("/:id", Game.deleteGame)
 
-export default router;
+export default routerGames

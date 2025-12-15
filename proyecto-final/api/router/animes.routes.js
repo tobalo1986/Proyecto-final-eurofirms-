@@ -1,12 +1,11 @@
-import express from 'express';
-import animeController from '../controllers/anime.controller.js';
+import express from "express"
+const routerAnimes = express.Router()
 
-const router = express.Router();
+import Anime from "../controller/anime.controler.js"
 
-// Rutas CRUD para Animes (GET / POST / PUT / DELETE)
-router.get('/', animeController.getAllAnimes);
-router.post('/', animeController.createAnime);
-router.put('/:id', animeController.updateAnime);
-router.delete('/:id', animeController.deleteAnime);
+routerAnimes.get("/", Anime.getAnimes)
+routerAnimes.post("/", Anime.createAnime)
+routerAnimes.put("/:id", Anime.updateAnime)
+routerAnimes.delete("/:id", Anime.deleteAnime)
 
-export default router;
+export default routerAnimes

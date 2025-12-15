@@ -1,9 +1,10 @@
-import express from 'express';
-import aiController from '../controllers/ai.controller.js';
+import express from "express"
+const routerIA = express.Router()
 
-const router = express.Router();
+import IA from "../controller/ai.controller.js"
 
-// Ruta de la Sensei IA
-router.post('/', aiController.handleSenseiRequest);
 
-export default router;
+routerIA.post("/games", IA.postIA)
+
+
+export default routerIA
