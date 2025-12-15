@@ -4,7 +4,7 @@ const routerIA = express.Router()
 import IA from "../controller/ai.controller.js"
 
 
-routerIA.post("/games", IA.postIA)
+routerIA.post("/", IA.postIA)
 
 
 export default routerIA

@@ -1,6 +1,8 @@
 import OpenAI from "openai";
+
 const client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY,
+  
 });
 
 const systemPrompt = `
@@ -55,6 +57,4 @@ const postIA =  async (req, res) => {
     }
 };
 
-export default {
-    postIA
-}
+export default postIA

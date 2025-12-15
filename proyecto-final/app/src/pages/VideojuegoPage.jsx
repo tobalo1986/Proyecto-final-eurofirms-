@@ -42,11 +42,11 @@ function VideojuegoPage() {
    * Primero se crea una copia del estado del array de objetos de juegos.
    * y a la copia se le hace la función pop()
    */
-  function deleteOne() {
+/*   function deleteOne() {
     const copy = [...gamesState];
     copy.pop();
     setGamesState(copy);
-  }
+  } */
 
   /**
    * función que recupera el juego a agregar
@@ -123,7 +123,7 @@ function VideojuegoPage() {
   }
 
   // cerrar formulario de editar
-  function cerrarFormulario() {
+  function closeForm() {
     setShowUpdate(false);
   }
 
@@ -171,7 +171,7 @@ function VideojuegoPage() {
    * Esta función cambia el valor de estado a verdadero o falso (si se pulsa más
    * de una vez)
    */
-  function agregar() {
+  function add() {
     setShow(!show);
   }
 
@@ -199,13 +199,13 @@ function VideojuegoPage() {
       {showUpdate && (
         <VideogameUpdateFormulario
           gameToUpdate={editGame}
-          onClose={cerrarFormulario}
+          onClose={closeForm}
           onUpdateGame={handleUpdate}
         />
       )}
       <div className="botonesVG">
         {/*  <button onClick={() => deleteOne()}>Delete the last one</button> */}
-        <button onClick={() => agregar()}>
+        <button onClick={() => add()}>
           {show ? "Cerrar formulario" : "Agregar nuevo"}
         </button>
       </div>

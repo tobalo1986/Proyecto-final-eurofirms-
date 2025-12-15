@@ -5,12 +5,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 // para conectar a la BB
 import connectBD from "./config/bd.js";
-
-
-
-
-// import rutas 
-
 // import de la IA
 import OpenAI from "openai";
 
@@ -37,6 +31,7 @@ api.use("/", router)
 
 // IA
 
+
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -57,7 +52,7 @@ REGLAS:
 - "text" nunca puede estar vacío.
 `;
 
-const postIA =  async (req, res) => {
+api.post("/api/sensei", async (req, res) => {
   try {
       const userMessage = req.body.message;
 
@@ -91,7 +86,7 @@ const postIA =  async (req, res) => {
       console.error("Error en la IA:", error);
       res.status(500).json({ text: "Error en el dojo.", emotion: "neutral" });
   }
-};
+});
 
 
 api.listen(PORT, () => console.log(`API funcionando en puerto ${PORT}`));

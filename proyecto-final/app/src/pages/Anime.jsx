@@ -53,7 +53,7 @@ function Anime() {
         setShowUpdate(true);
     }
 
-    function cerrarFormulario() {
+    function closeForm() {
         setShowUpdate(false);
     }
 
@@ -69,7 +69,7 @@ function Anime() {
             });
     }
 
-    function agregar() {
+    function add() {
         setShow(!show);
     }
 
@@ -94,13 +94,13 @@ function Anime() {
             {showUpdate && (
                 <AnimeUpdateFormulario
                     animeToUpdate={editAnime}
-                    onClose={cerrarFormulario}
+                    onClose={closeForm}
                     onUpdateAnime={handleUpdateAnime}
                 />
             )}
 
             <div className="botonesVG">
-                <button className="btn-secondary" onClick={agregar}>
+                <button className="btn-secondary" onClick={add}>
                     {show ? "Cerrar formulario" : "Agregar nuevo"}
                 </button>
             </div>
