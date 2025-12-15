@@ -317,6 +317,7 @@ body {
         max-height: 320px;
     }
 }
+
 /* para crear juegos nuevos - modal
 Formulario de agregar nuevo videogame!
 y editar game.*/
@@ -327,7 +328,7 @@ que tenga una transparencia, y centra el segundo div */
 
 .modal {
     position: fixed;
-    top: 0;
+    top: 30px;
     right: 0;
     width: 100%;
     height: 100%;
@@ -337,12 +338,21 @@ que tenga una transparencia, y centra el segundo div */
     align-items: center;
 
 }
+
 /* estilo para el div donde esta el formulario, en principio fondo blanco
 y letras negras.*/
 .formModal {
-    background-color: white;
-    color: black;
+    background: linear-gradient(145deg, #0f1023 0%, #171837 100%);
+    border-radius: 16px;
+    padding: 1.25rem 1.25rem 1.4rem;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 
+}
+
+.formModal h2 {
+    text-align: center;
+    
 }
 
 .formModal form {
@@ -351,9 +361,23 @@ y letras negras.*/
     padding: 10%;
 }
 
+.formModal  form label {
+    margin: 0.15rem 0;
+    font-size: 0.9rem;
+    
+}
+
+.formModal h2, form label {
+  
+    color: #a5a7c7;
+}
+
 .formModal form .itemForm {
     padding: 5%;
 }
+
+
+
 /* - fin del modal del formulario crear juego */
 
 .videogame-list {
@@ -645,7 +669,7 @@ y letras negras.*/
     justify-content: center;
 }
 
-.botonesVG button {
+.botonesVG button, input[type="submit"] {
     padding: 0.6rem 1.1rem;
     border-radius: 999px;
     border: 1px solid transparent;
@@ -661,7 +685,7 @@ y letras negras.*/
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
 }
 
-.botonesVG button:hover {
+.botonesVG button:hover, input[type="submit"]:hover  {
     transform: translateY(-2px);
     filter: brightness(1.06);
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.75);
@@ -861,5 +885,3 @@ y letras negras.*/
     font-size: 0.78rem;
     opacity: 0.9;
 }
-
-

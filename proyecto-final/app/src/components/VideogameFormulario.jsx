@@ -91,8 +91,10 @@ export default function VideogameFormulario({ onAddGame }) {
         />
      </div>
      <div className="botonesVG">
-        <input type="submit" value="Agregar" />
-        </div>
+       <input type="submit" value="Agregar" />
+       </div>
+       
+       
         {/* duda como pasar datos para que se pueda pintar en videojuegos
         idea: pasar los datos y cuando se agregue la id seria un +1
         a la última id que haya en la BBDD 
