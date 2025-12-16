@@ -1,9 +1,9 @@
 import OpenAI from "openai";
+import dotenv from "dotenv";
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  
-});
+dotenv.config();
+
+const client = new OpenAI({apiKey: process.env.OPENAI_API_KEY,}); 
 
 const systemPrompt = `
 Eres una sensei anime amable y divertida.

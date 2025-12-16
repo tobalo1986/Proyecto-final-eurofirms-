@@ -1,4 +1,4 @@
-export default function VideogameFormulario({ onAddGame }) {
+export default function VideogameFormulario({ onAddGame, onClose}) {
   /**
    * 
    * Función agregar un juego, se recupera los datos del formulario
@@ -92,6 +92,7 @@ export default function VideogameFormulario({ onAddGame }) {
      </div>
      <div className="botonesVG">
        <input type="submit" value="Agregar" />
+       <input type="button" onClick={onClose} value="Cancelar" />
        </div>
        
        

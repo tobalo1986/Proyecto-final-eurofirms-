@@ -211,7 +211,7 @@ function VideojuegoPage() {
       </div>
 
       {/* muestra el formulario solo si show = true */}
-      {show && <VideogameFormulario onAddGame={handleCreateGame} />}
+      {show && <VideogameFormulario onAddGame={handleCreateGame} onClose={() => setShow(false)} />}
     </>
   );
 }
