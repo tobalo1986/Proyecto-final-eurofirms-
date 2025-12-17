@@ -20,7 +20,7 @@ export default function VideogameUpdateFormulario({
   // console.log(year)
 
   // coge la información de los input y los pasas a su padre.
-  function actualizarJuego(event) {
+  function upGAme(event) {
     event.preventDefault();
     let gameUpdate = {
       id: gameToUpdate.id,
@@ -43,7 +43,7 @@ export default function VideogameUpdateFormulario({
      <div className="formModal">
     
      <h2>Vamos a editar... </h2>
-        <form onSubmit={actualizarJuego} action="" method="post">
+        <form onSubmit={upGAme} action="" method="post">
           <div className="itemForm">
             <label htmlFor="name">Nombre:</label>
             <input

@@ -367,6 +367,10 @@ y letras negras.*/
     
 }
 
+.formModal form .botonesVG{
+    margin-top: 2em;
+}
+
 .formModal h2, form label {
   
     color: #a5a7c7;
@@ -376,6 +380,10 @@ y letras negras.*/
     padding: 5%;
 }
 
+.itemForm {
+    display: flex;
+    flex-direction: column;
+}
 
 
 /* - fin del modal del formulario crear juego */
@@ -663,7 +671,7 @@ y letras negras.*/
 
 .botonesVG {
     display: flex;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     gap: 0.75rem;
     margin: 0 auto 2rem;
     justify-content: center;

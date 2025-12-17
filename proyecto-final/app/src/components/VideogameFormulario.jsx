@@ -4,7 +4,7 @@ export default function VideogameFormulario({ onAddGame, onClose}) {
    * Función agregar un juego, se recupera los datos del formulario
    * y se guarda en gameAdd, que es un objeto.
    */
-  function agregarJuego(event) {
+  function addGame(event) {
     event.preventDefault();
     let gameAdd = {};
 
@@ -33,7 +33,7 @@ export default function VideogameFormulario({ onAddGame, onClose}) {
      <div className="formModal">
 
       <h2>Agrega un videojuego.</h2>
-      <form onSubmit={agregarJuego} action="" method="post">
+      <form onSubmit={addGame} action="" method="post">
 
       <div className="itemForm">
       <label htmlFor="name">Nombre:</label>
@@ -92,7 +92,8 @@ export default function VideogameFormulario({ onAddGame, onClose}) {
      </div>
      <div className="botonesVG">
        <input type="submit" value="Agregar" />
-       <input type="button" onClick={onClose} value="Cancelar" />
+       {/*<button onClick={onClose} value="Cancelar" />*/}
+       <button onClick={onClose}>Cancelar</button>
        </div>
        
        

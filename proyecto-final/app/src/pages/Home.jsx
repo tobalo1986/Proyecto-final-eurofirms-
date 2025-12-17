@@ -12,9 +12,7 @@ function Home() {
             // solucion cls para mejorar el rendimiento
             width="1043"
             height="582"
-
             // solucion para mejorar la velocidad de carga
-
             fetchPriority="high"
           />
         </div>
@@ -28,7 +26,7 @@ function Home() {
         </p>
 
         <div className="home-cta">
-          <Link to="/manga" className="btn-primary">
+          <Link to="/manga" className="btn-outline">
             Ver Manga
           </Link>
           <Link to="/anime" className="btn-outline">
