@@ -35,7 +35,7 @@ api.use("/", router)
 const client = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
-
+/*
 const systemPrompt = `
 Eres una sensei anime amable y divertida.
 
@@ -87,6 +87,6 @@ api.post("/api/sensei", async (req, res) => {
         res.status(500).json({ text: "Error en el dojo.", emotion: "neutral" });
     }
 });
-
+*/
 
 api.listen(PORT, () => console.log(`API funcionando en puerto ${PORT}`));
