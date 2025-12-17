@@ -137,7 +137,9 @@ body {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     margin-bottom: 0.6rem;
+    padding-top: 2rem;
 }
+
 
 .home-subtitle {
     color: #a5a7c7;
