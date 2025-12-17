@@ -346,7 +346,7 @@ y letras negras.*/
 .formModal {
     background: linear-gradient(145deg, #0f1023 0%, #171837 100%);
     border-radius: 16px;
-    padding: 1.25rem 1.25rem 1.4rem;
+    padding: 2rem 2rem 2rem;
     text-align: left;
     border: 1px solid rgba(255, 255, 255, 0.08);
 
@@ -424,6 +424,7 @@ y letras negras.*/
     justify-content: space-between;
 }
 
+/*
 .formModalAnime {
     
     background: linear-gradient(145deg, #0f1023 0%, #171837 100%);
@@ -431,7 +432,7 @@ y letras negras.*/
     padding: 2rem 2rem 2rem;
     text-align: left;
     border: 1px solid rgba(255, 255, 255, 0.08);
-}
+}*/
 @media (max-width: 1024px) {
     .videogame-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -689,6 +690,8 @@ y letras negras.*/
     gap: 0.75rem;
     margin: 0 auto 2rem;
     justify-content: center;
+    padding-right: 30px;
+
 }
 
 .botonesVG button, input[type="submit"] {

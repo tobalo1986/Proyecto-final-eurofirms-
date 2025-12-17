@@ -20,7 +20,7 @@ export default function AnimeFormulario({ onAddAnime, onClose }) {
     return (
         // clase para editar/ modificar un modal.
         <div className="modal">
-            <div className="formModalAnime">
+            <div className="formModal">
 
                 <h2>Agrega un anime.</h2>
                 <form onSubmit={agregarAnime} action="" method="post">
