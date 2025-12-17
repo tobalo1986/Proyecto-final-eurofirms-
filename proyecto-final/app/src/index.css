@@ -609,9 +609,7 @@ y letras negras.*/
 }
 
 .anime-card__id {
-    font-size: 0.75rem;
-    color: #a5a7c7;
-    margin: 0;
+    display:none;
 }
 
 .anime-card__title {
