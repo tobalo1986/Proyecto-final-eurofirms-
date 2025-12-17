@@ -118,6 +118,7 @@ export default function VideogameUpdateFormulario({
           </div>
           <div className="botonesVG">
           <input type="submit" value="Modificar" />
+          <button onClick={onClose}>Cancelar</button>
           </div>
         </form>
         </div>

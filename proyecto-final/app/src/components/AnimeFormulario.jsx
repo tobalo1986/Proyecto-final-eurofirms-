@@ -1,4 +1,4 @@
-export default function AnimeFormulario({ onAddAnime }) {
+export default function AnimeFormulario({ onAddAnime, onClose }) {
     /**
      * 
      * Función agregar un anime, se recupera los datos del formulario
@@ -20,7 +20,7 @@ export default function AnimeFormulario({ onAddAnime }) {
     return (
         // clase para editar/ modificar un modal.
         <div className="modal">
-            <div className="formModal">
+            <div className="formModalAnime">
 
                 <h2>Agrega un anime.</h2>
                 <form onSubmit={agregarAnime} action="" method="post">
@@ -81,6 +81,7 @@ export default function AnimeFormulario({ onAddAnime }) {
 
                     <div className="botonesVG">
                         <input type="submit" value="Agregar" />
+                        <button onClick={onClose}>Cancelar</button>
                     </div>
                 </form>
             </div>

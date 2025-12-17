@@ -92,7 +92,6 @@ export default function VideogameFormulario({ onAddGame, onClose}) {
      </div>
      <div className="botonesVG">
        <input type="submit" value="Agregar" />
-       {/*<button onClick={onClose} value="Cancelar" />*/}
        <button onClick={onClose}>Cancelar</button>
        </div>
        

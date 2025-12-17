@@ -113,6 +113,8 @@ export default function AnimeUpdateFormulario({
                         </div>
                         <div className="botonesAnime">
                             <input type="submit" value="Modificar" />
+                            {/*<button onClick={onClose}>Cancelar</button>*/}
+                            <input type="submit" value="cancelar"/>
                         </div>
                     </form>
                 </div>

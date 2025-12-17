@@ -416,6 +416,20 @@ y letras negras.*/
     margin: 0 auto;
 }
 
+.botonesAnime{
+    padding-top: 1rem;
+    display:flex;
+    justify-content: space-between;
+}
+
+.formModalAnime {
+    
+    background: linear-gradient(145deg, #0f1023 0%, #171837 100%);
+    border-radius: 16px;
+    padding: 2rem 2rem 2rem;
+    text-align: left;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
 @media (max-width: 1024px) {
     .videogame-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));

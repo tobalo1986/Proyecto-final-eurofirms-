@@ -105,7 +105,7 @@ function Anime() {
                 </button>
             </div>
 
-            {show && <AnimeFormulario onAddAnime={handleCreateAnime} />}
+            {show && <AnimeFormulario onAddAnime={handleCreateAnime} onClose={() => setShow(false)} />}
         </section>
     );
 }
