@@ -84,33 +84,37 @@ El código sigue el patrón **MVC (Modelo-Vista-Controlador)** en el backend y u
 ### 1. Clonar el repositorio
 
 ```bash
-** git clone <url-del-repositorio>
-** cd api
-** npm install
-** cd ../app
-** npm install
+git clone <url-del-repositorio>
+cd api
+npm install
+cd ../app
+npm install
+````
 
+```
 # Crear Archivos .env en raiz de proyectos App y Api
+
 
 ## Estructura .env Api 
 
+1. MONGO_URI= tu BD
+2. MONGO_DB= Tu Colección
+3. OPENAI_API_KEY= tu api key
+4. PORT= Tu puerto Favorito
 ```
-MONGO_URI= tu BD
-MONGO_DB= Tu Colección
-OPENAI_API_KEY= tu api key "Gastate los cuartos"
-PORT= Tu puerto Favorito
-
 ## Estructura .env app
 
 VITE_API_URL= El localhost escuchando en tu puerto favorito 
 
 # Backend
-** npm start
+npm start
 
 # Frontend
-** npm run dev 
+
+npm run dev 
 
 ## Documentación de la API
+
 ```
 ### Videojuegos `/games`
 
@@ -135,31 +139,31 @@ VITE_API_URL= El localhost escuchando en tu puerto favorito
 
 ## Autores
 
-** Cristóbal y Natalia **
+**Cristóbal y Natalia**
 
 ## Mención especial a nuestros compañeros
 
-** Victor y Daniel Que empezaron el proyecto con nosotros **
+**Victor y Daniel Que empezaron el proyecto con nosotros**
 
 ## Trabajos realizados Natalia 
 
-** Sección de Videojuegos completa y Gestión de BBDD **
+**Sección de Videojuegos completa y Gestión de BBDD**
 
 ## Trabajos realizados Cristóbal 
 
-** Sección de Anime completa e implementación chat IA
+**Sección de Anime completa e implementación chat IA**
 
 ## Resto de Trabajos en conjunto
 
-** css, postman, diseño de imágenes y creación del documento que leen en este momento **
+**css, postman, diseño de imágenes y creación del documento que leen en este momento**
 
 ## Creditos y herramientas  especiales
 
-** chat gpt y gemini : Debugging y Diseño de imagenes **
-** canva: Edición de imagenes
-** Postman: Pruenbas de BBDD
-** Inspeccionador de elementos: Diseño directo y debugging
-** Herramientas de Desarrollador Lighthouse: Inspección de Accesibilidad, seo, rendimiento y practicas recomendadas
+**chat gpt y gemini : Debugging y Diseño de imagenes**
+**canva: Edición de imagenes**
+**Postman: Pruenbas de BBDD**
+**Inspeccionador de elementos: Diseño directo y debugging**
+**Herramientas de Desarrollador Lighthouse: Inspección de Accesibilidad, seo, rendimiento y practicas recomendadas**
 
 ## Futuras mejoras
 
@@ -184,5 +188,5 @@ VITE_API_URL= El localhost escuchando en tu puerto favorito
 ## Agradecimientos especiales 
 
 - Guy Aloni : Por su paciencia diaria
-- Manuel David devpro : Por su ayuda y explicaciones 
+- Manuel David Devpro : Por su ayuda y explicaciones 
 - Alba : Por su seguimiento y comprensión
