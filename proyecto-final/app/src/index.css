@@ -498,6 +498,10 @@ y letras negras.*/
     color: #a5a7c7;
 }
 
+.hiddenId{
+    display: none;
+}
+
 .manga-card {
     background: linear-gradient(145deg, #0f1023 0%, #171837 100%);
     border-radius: 16px;

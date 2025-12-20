@@ -13,7 +13,7 @@ function VidegameCard({ propsVideogame, onDelete, onUpdate }) {
   return (
     <div className="cardVideoGame">
       <div>
-        <p>ID: {id}</p>
+        <p className="hiddenId">ID: {id}</p>
         <p>Nombre: {name}</p>
         <p>Precio: {price} €</p>
         <p>Plataforma: {platform}</p>
